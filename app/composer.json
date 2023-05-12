@@ -1,0 +1,23 @@
+{
+  "name": "developersnl/ums",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Jasper Stafleu",
+      "email": "j.stafleu@developers.nl"
+    }
+  ],
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "DevelopersNL\\": "./"
+    }
+  }
+}
