@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $this->assertInstanceOf(Request::class, Request::create());
     }

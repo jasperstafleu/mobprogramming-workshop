@@ -19,7 +19,7 @@ class KernelTest extends TestCase
         $this->kernel = new Kernel();
     }
 
-    public function testHandle()
+    public function testHandle(): void
     {
         $request = $this->createMock(Request::class);
         $response = $this->kernel->handle($request);

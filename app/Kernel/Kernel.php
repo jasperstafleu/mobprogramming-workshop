@@ -1,4 +1,5 @@
 <?php
+
 namespace DevelopersNL\Kernel;
 
 use DevelopersNL\Request\Request;

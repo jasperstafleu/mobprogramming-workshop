@@ -17,7 +17,7 @@ class ResponseTest extends TestCase
         $this->response = new Response();
     }
 
-    public function testSend()
+    public function testSend(): void
     {
         ob_start();
         $this->response->send();
