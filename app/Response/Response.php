@@ -2,10 +2,22 @@
 
 namespace DevelopersNL\Response;
 
-class Response
+use DevelopersNL\View\ViewInterface;
+
+readonly class Response
 {
+    public function __construct(
+        public ViewInterface $view,
+        public int $statusCode = 200
+    ) {
+
+    }
+
     public function send(): void
     {
-        echo "Hello world";
+        $content = (string) $this->view;
+
+        http_response_code(empty($content) && $this->statusCode === 200 ? 204 : $this->statusCode);
+        echo $content;
     }
 }
