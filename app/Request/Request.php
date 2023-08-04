@@ -2,7 +2,7 @@
 
 namespace DevelopersNL\Request;
 
-readonly class Request
+class Request
 {
     public function __construct(
         public string $path

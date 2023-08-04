@@ -4,7 +4,7 @@ namespace DevelopersNL\Kernel;
 
 use DevelopersNL\Request\Request;
 use DevelopersNL\Response\Response;
-use DevelopersNL\View\View;
+use DevelopersNL\View\DefaultHtmlView;
 
 class Kernel
 {
@@ -12,8 +12,9 @@ class Kernel
 
     public function __construct()
     {
+        // TODO: Move to config somewhere.
         $this->routes = [
-            '/' => fn() => new View('templates/home.phtml', ['title' => 'Home']),
+            '/' => fn() => new DefaultHtmlView('templates/home.phtml', ['title' => 'Home']),
         ];
     }
 
@@ -25,6 +26,6 @@ class Kernel
             }
         }
 
-        return new Response(new View('templates/404.phtml'), 404);
+        return new Response(new DefaultHtmlView('templates/404.phtml'), 404);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 namespace DevelopersNL\View;
 
-class View implements ViewInterface
+class DefaultHtmlView implements ViewInterface
 {
     public function __construct(
-        readonly public string $template,
+        public string $template,
         protected array $params = []
     ) {
     }

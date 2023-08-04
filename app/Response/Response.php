@@ -4,7 +4,7 @@ namespace DevelopersNL\Response;
 
 use DevelopersNL\View\ViewInterface;
 
-readonly class Response
+class Response
 {
     public function __construct(
         public ViewInterface $view,
@@ -15,9 +15,7 @@ readonly class Response
 
     public function send(): void
     {
-        $content = (string) $this->view;
-
-        http_response_code(empty($content) && $this->statusCode === 200 ? 204 : $this->statusCode);
-        echo $content;
+        http_response_code($this->statusCode);
+        echo $this->view;
     }
 }

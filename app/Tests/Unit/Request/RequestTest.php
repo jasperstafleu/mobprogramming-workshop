@@ -10,8 +10,10 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestTest extends TestCase
 {
-    public function testCreate(): void
+    public function testCreateTakesPathFromServerSuperGlobal(): void
     {
-        $this->assertInstanceOf(Request::class, Request::create());
+        $_SERVER['REQUEST_URI'] = (string) mt_rand();
+
+        $this->assertEquals($_SERVER['REQUEST_URI'], Request::create()->path);
     }
 }

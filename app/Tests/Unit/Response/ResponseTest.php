@@ -3,6 +3,8 @@
 namespace DevelopersNL\Tests\Unit\Response;
 
 use DevelopersNL\Response\Response;
+use DevelopersNL\View\DefaultHtmlView;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -10,20 +12,37 @@ use PHPUnit\Framework\TestCase;
  */
 class ResponseTest extends TestCase
 {
+    protected MockObject|DefaultHtmlView $view;
+    protected int $statusCode;
     protected Response $response;
 
     public function setUp(): void
     {
-        $this->response = new Response();
+        $this->view = $this->createMock(DefaultHtmlView::class);
+        $this->statusCode = mt_rand();
+        $this->response = new Response(
+            $this->view,
+            $this->statusCode
+        );
     }
 
-    public function testSend(): void
+    protected function getSentContent()
     {
         ob_start();
         $this->response->send();
         $content = ob_get_contents();
         ob_end_clean();
 
-        $this->assertSame("Hello world", $content);
+        return $content;
+    }
+
+    public function testSendsStringValueOfViewAndRespectsStatusCode(): void
+    {
+        $expectedContent = (string) mt_rand();
+
+        $this->view->method("__toString")->willReturn($expectedContent);
+
+        $this->assertEquals($expectedContent, $this->getSentContent());
+        $this->assertEquals($this->statusCode, http_response_code());
     }
 }
