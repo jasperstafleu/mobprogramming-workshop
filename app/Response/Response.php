@@ -2,8 +2,6 @@
 
 namespace DevelopersNL\Response;
 
-use DevelopersNL\View\ViewInterface;
-
 class Response
 {
     public function __construct(

@@ -1,6 +1,8 @@
 <?php
 namespace DevelopersNL\View;
 
+use DevelopersNL\Response\ViewInterface;
+
 class DefaultHtmlView implements ViewInterface
 {
     public function __construct(

@@ -4,8 +4,9 @@ namespace DevelopersNL\Tests\Unit\Kernel;
 
 use DevelopersNL\Kernel\Kernel;
 use DevelopersNL\Request\Request;
+use DevelopersNL\Request\Route;
 use DevelopersNL\Response\Response;
-use DevelopersNL\View\DefaultHtmlView;
+use DevelopersNL\Response\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -14,36 +15,72 @@ use PHPUnit\Framework\TestCase;
  */
 class KernelTest extends TestCase
 {
-    protected MockObject $existingView;
+    protected MockObject|Route $route;
     protected Kernel $kernel;
 
     public function setUp(): void
     {
-        $this->existingView = $this->createMock(DefaultHtmlView::class);
-        $this->kernel = new Kernel([
-            '/path-that-exists' => fn() => $this->existingView,
-        ]);
+        $this->route = $this->createMock(Route::class);
+        $this->kernel = new Kernel([ $this->route ]);
     }
 
-    public function testExistingPath(): void
+    public function testExistingPathWithResultingView(): void
     {
+        $view = $this->createMock(ViewInterface::class);
         $request = $this->createMock(Request::class);
-        $request->path = '/path-that-exists';
+
+        $this->route
+            ->expects($this->once())
+            ->method('matches')
+            ->with($request)
+            ->willReturn(true);
+
+        $this->route
+            ->expects($this->once())
+            ->method('control')
+            ->with($request)
+            ->willReturn($view);
 
         $response = $this->kernel->handle($request);
 
-        $this->assertSame($this->existingView, $response->view);
+        $this->assertSame($view, $response->view);
         $this->assertSame(200, $response->statusCode);
+    }
+
+    public function testExistingPathWithResultingResponse(): void
+    {
+        $response = $this->createMock(Response::class);
+        $request = $this->createMock(Request::class);
+
+        $this->route
+            ->expects($this->once())
+            ->method('matches')
+            ->with($request)
+            ->willReturn(true);
+
+        $this->route
+            ->expects($this->once())
+            ->method('control')
+            ->with($request)
+            ->willReturn($response);
+
+        $actualResponse = $this->kernel->handle($request);
+
+        $this->assertSame($response, $actualResponse);
     }
 
     public function testNotExisitingPathYields404(): void
     {
         $request = $this->createMock(Request::class);
-        $request->path = '/path-that-doesnt-exist';
+
+        $this->route
+            ->expects($this->once())
+            ->method('matches')
+            ->with($request)
+            ->willReturn(false);
 
         $response = $this->kernel->handle($request);
 
-        $this->assertNotSame($this->existingView, $response->view);
         $this->assertSame(404, $response->statusCode);
     }
 }

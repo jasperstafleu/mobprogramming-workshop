@@ -3,11 +3,15 @@
 namespace DevelopersNL\Kernel;
 
 use DevelopersNL\Request\Request;
+use DevelopersNL\Request\Route;
 use DevelopersNL\Response\Response;
 use DevelopersNL\View\DefaultHtmlView;
 
 class Kernel
 {
+    /**
+     * @param Route[] $routes
+     */
     public function __construct(
         private array $routes
     )
@@ -16,9 +20,10 @@ class Kernel
 
     public function handle(Request $request): Response
     {
-        foreach ($this->routes as $path => $controller) {
-            if ($request->path === $path) {
-                return new Response($controller($request), 200);
+        foreach ($this->routes as $route) {
+            if ($route->matches($request)) {
+                $result = $route->control($request);
+                return $result instanceof Response ? $result : new Response($result, 200);
             }
         }
 
