@@ -1,1 +1,23 @@
+<?php
+    function formElement($name, $type, $label, $example = '') {
+        return <<<COMPONENT
+            <div class="form-floating mb-3">
+                <input type="{$type}" class="form-control" id="{$name}" name="{$name}" placeholder="{$example}">
+                <label for="{$name}">{$label}</label>
+            </div>
+        COMPONENT;
+    }
+?>
+
 <h1>Registreer</h1>
+
+<form method="POST" action="/register">
+    <?= formElement('firstname', 'text', 'Voornaam', 'Jasper') ?>
+    <?= formElement('lastname', 'text', 'Achternaam', 'Stafleu') ?>
+    <?= formElement('email', 'email', 'Email', 'jasper.stafleu@example.org') ?>
+    <?= formElement('password', 'password', 'Wachtwoord') ?>
+    <?= formElement('secret_question', 'text', 'Geheime vraag') ?>
+    <?= formElement('secret_question_answer', 'text', 'Antwoord') ?>
+
+    <button type="submit" class="btn btn-primary">Opsturen</button>
+</form>
