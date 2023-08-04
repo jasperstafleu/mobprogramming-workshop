@@ -20,12 +20,9 @@ class KernelTest extends TestCase
     public function setUp(): void
     {
         $this->existingView = $this->createMock(DefaultHtmlView::class);
-        $this->kernel = new Kernel();
-        \Closure::bind(fn($routes) => $this->routes = $routes, $this->kernel, $this->kernel)(
-            [
-                '/path-that-exists' => fn() => $this->existingView,
-            ]
-        );
+        $this->kernel = new Kernel([
+            '/path-that-exists' => fn() => $this->existingView,
+        ]);
     }
 
     public function testExistingPath(): void

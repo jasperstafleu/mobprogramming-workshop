@@ -8,14 +8,10 @@ use DevelopersNL\View\DefaultHtmlView;
 
 class Kernel
 {
-    private array $routes;
-
-    public function __construct()
+    public function __construct(
+        private array $routes
+    )
     {
-        // TODO: Move to config somewhere.
-        $this->routes = [
-            '/' => fn() => new DefaultHtmlView('templates/home.phtml', ['title' => 'Home']),
-        ];
     }
 
     public function handle(Request $request): Response
