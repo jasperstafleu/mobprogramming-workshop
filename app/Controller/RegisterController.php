@@ -3,13 +3,14 @@
 namespace DevelopersNL\Controller;
 
 use DevelopersNL\Request\Request;
-use DevelopersNL\Response\ViewInterface;
+use DevelopersNL\Response\RedirectResponse;
+use DevelopersNL\Response\ResponseInterface;
 
 class RegisterController
 {
-    public function call(Request $request): ViewInterface
+    public function call(Request $request): ResponseInterface
     {
         // TODO: Implement!
-        var_dump($request->parsedBody); die;
+        return new RedirectResponse('/', 303);
     }
 }

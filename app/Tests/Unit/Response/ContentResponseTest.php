@@ -2,25 +2,25 @@
 
 namespace DevelopersNL\Tests\Unit\Response;
 
-use DevelopersNL\Response\Response;
+use DevelopersNL\Response\ContentResponse;
 use DevelopersNL\View\DefaultHtmlView;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \DevelopersNL\Response\Response
+ * @covers \DevelopersNL\Response\ContentResponse
  */
-class ResponseTest extends TestCase
+class ContentResponseTest extends TestCase
 {
     protected MockObject|DefaultHtmlView $view;
     protected int $statusCode;
-    protected Response $response;
+    protected ContentResponse $response;
 
     public function setUp(): void
     {
         $this->view = $this->createMock(DefaultHtmlView::class);
         $this->statusCode = mt_rand();
-        $this->response = new Response(
+        $this->response = new ContentResponse(
             $this->view,
             $this->statusCode
         );

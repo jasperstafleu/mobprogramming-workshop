@@ -4,7 +4,7 @@ namespace DevelopersNL\Tests\Unit\Request;
 
 use DevelopersNL\Request\Request;
 use DevelopersNL\Request\Route;
-use DevelopersNL\Response\Response;
+use DevelopersNL\Response\ContentResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +51,7 @@ class RouteTest extends TestCase
 
     public function testControl()
     {
-        $response = $this->createMock(Response::class);
+        $response = $this->createMock(ContentResponse::class);
 
         $route = new Route(fn() => true, fn() => $response);
 

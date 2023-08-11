@@ -5,7 +5,7 @@ namespace DevelopersNL\Tests\Unit\Kernel;
 use DevelopersNL\Kernel\Kernel;
 use DevelopersNL\Request\Request;
 use DevelopersNL\Request\Route;
-use DevelopersNL\Response\Response;
+use DevelopersNL\Response\ContentResponse;
 use DevelopersNL\Response\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -44,12 +44,12 @@ class KernelTest extends TestCase
         $response = $this->kernel->handle($request);
 
         $this->assertSame($view, $response->view);
-        $this->assertSame(200, $response->statusCode);
+        $this->assertSame(200, $response->responseCode);
     }
 
     public function testExistingPathWithResultingResponse(): void
     {
-        $response = $this->createMock(Response::class);
+        $response = $this->createMock(ContentResponse::class);
         $request = $this->createMock(Request::class);
 
         $this->route
@@ -81,6 +81,6 @@ class KernelTest extends TestCase
 
         $response = $this->kernel->handle($request);
 
-        $this->assertSame(404, $response->statusCode);
+        $this->assertSame(404, $response->responseCode);
     }
 }

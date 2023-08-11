@@ -2,7 +2,7 @@
 
 namespace DevelopersNL\Request;
 
-use DevelopersNL\Response\Response;
+use DevelopersNL\Response\ResponseInterface;
 use DevelopersNL\Response\ViewInterface;
 
 class Route
@@ -22,7 +22,7 @@ class Route
         return is_callable($this->matcher) ? ($this->matcher)($request) : $request->path === $this->matcher;
     }
 
-    public function control(Request $request): ViewInterface|Response
+    public function control(Request $request): ViewInterface|ResponseInterface
     {
         return ($this->controller)($request);
     }

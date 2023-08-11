@@ -4,7 +4,8 @@ namespace DevelopersNL\Kernel;
 
 use DevelopersNL\Request\Request;
 use DevelopersNL\Request\Route;
-use DevelopersNL\Response\Response;
+use DevelopersNL\Response\ContentResponse;
+use DevelopersNL\Response\ResponseInterface;
 use DevelopersNL\View\DefaultHtmlView;
 
 class Kernel
@@ -18,15 +19,15 @@ class Kernel
     {
     }
 
-    public function handle(Request $request): Response
+    public function handle(Request $request): ResponseInterface
     {
         foreach ($this->routes as $route) {
             if ($route->matches($request)) {
                 $result = $route->control($request);
-                return $result instanceof Response ? $result : new Response($result, 200);
+                return $result instanceof ResponseInterface ? $result : new ContentResponse($result, 200);
             }
         }
 
-        return new Response(new DefaultHtmlView('templates/404.phtml'), 404);
+        return new ContentResponse(new DefaultHtmlView('templates/404.phtml'), 404);
     }
 }

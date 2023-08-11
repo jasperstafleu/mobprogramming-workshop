@@ -2,18 +2,18 @@
 
 namespace DevelopersNL\Response;
 
-class Response
+class ContentResponse implements ResponseInterface
 {
     public function __construct(
         public ViewInterface $view,
-        public int $statusCode = 200
+        public int $responseCode = 200
     ) {
 
     }
 
     public function send(): void
     {
-        http_response_code($this->statusCode);
+        http_response_code($this->responseCode);
         echo $this->view;
     }
 }

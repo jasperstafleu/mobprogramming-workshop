@@ -21,7 +21,9 @@
     </include>
     <exclude>
       <directory suffix="*">./app/vendor</directory>
-      <directory suffix="*">./app/tests</directory>
+      <directory suffix="*">./app/Tests</directory>
+      <directory suffix="*">./app/View</directory>
+      <directory suffix="*">./app/templates</directory>
     </exclude>
   </source>
 </phpunit>
