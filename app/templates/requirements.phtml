@@ -1,0 +1,45 @@
+<h1>Home</h1>
+
+<h2>Beschrijving van het systeem</h2>
+
+<?php
+    function fr(string $description, string $frNumber, bool $requirementMet = false, string $tag = 'p'): string // fr = Functional requirement
+    {
+        $fr = sprintf('%s<span class="badge bg-%s rounded-pill">%s</span>', $description, $requirementMet ? 'primary' : 'secondary' , $frNumber);
+
+        return match ($tag) {
+            'p' => sprintf('<p class="d-flex justify-content-between align-items-center">%s</p>', $fr),
+            'li' => sprintf('<li class="list-group-item d-flex justify-content-between align-items-center">%s</>', $fr),
+            'h' => sprintf('<h3 class="d-flex justify-content-between align-items-center">%s</h3>', $fr),
+        };
+    }
+?>
+
+<?= fr('Hoofdpagina', 'FR1', true, 'h') ?>
+<?= fr('Op de hoofdpagina moet het mogelijk zijn om, als nieuwe gebruiker, jezelf te registreren op de site.', 'FR1.1', true,) ?>
+<p class="d-flex justify-content-between align-items-center">Om jezelf te registreren moet je minimaal invullen:
+    <ul class="list-group">
+        <?= fr('voornaam', 'FR1.1.1', true, 'li') ?>
+        <?= fr('achternaam', 'FR1.1.2', true, 'li') ?>
+        <?= fr('emailadres', 'FR1.1.3', true, 'li') ?>
+        <?= fr('wachtwoord', 'FR1.1.4', true, 'li') ?>
+        <?= fr('geheime vraag + antwoord ivm wachtwoord vergeten', 'FR1.1.5', true, 'li') ?>
+    </ul>
+</p>
+
+<?= fr('Persoonlijke Pagina', 'FR2', false, 'h') ?>
+    <?= fr('Een gebruiker moet kunnen inloggen op zijn / haar persoonlijke pagina', 'FR2.2') ?>
+    <?= fr('Op deze pagina kan de gebruiker zijn / haar gegevens wijzigen', 'FR2.2') ?>
+    <?= fr('Het moet mogelijk zijn om je login gegevens op te slaan zodat de gebruiker bij het volgende bezoek aan de site niet meer hoeft in te loggen', 'FR2.3') ?>
+    <?= fr('Een geblokkeerde gebruiker kan niet inloggen op zijn / haar profiel pagina.', 'FR2.4') ?>
+
+<?= fr('Wachtwoord Vergeten', 'FR3', false, 'h') ?>
+    <?= fr('Wanneer een gebruiker zijn / haar wachtwoord is vergeten, moet het wachtwoord gereset kunnen worden door middel van het stellen van een “geheime” vraag.', 'FR3.1') ?>
+
+<?= fr('Admin Pagina', 'FR4', false, 'h') ?>
+    <?= fr('Om de gebruikers te beheren moet het mogelijk zijn om, als admin zijnde, in te loggen op het systeem.', 'FR4.1') ?>
+    <?= fr('Ook moet de admin nieuwe gebruikers kunnen aanmaken.', 'FR4.2') ?>
+    <?= fr('De admin moet door middel van een gebruikersoverzicht alle gebruikers kunnen beheren.', 'FR4.3') ?>
+    <?= fr('Ook moet er gezocht kunnen worden naar een gebruiker.', 'FR4.4') ?>
+    <?= fr('Gebruikers moet via het overzicht geblokkeerd kunnen worden.', 'FR4.5') ?>
+    <?= fr('Er moet bij gebruikers ook een notitie aangemaakt kunnen worden welke alleen door de admin gezien en gewijzigd kan worden.', 'FR4.5') ?>
