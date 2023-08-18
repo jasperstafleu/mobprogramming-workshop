@@ -1,11 +1,9 @@
-<h1>Home</h1>
-
-<h2>Beschrijving van het systeem</h2>
+<h1>Beschrijving van het systeem</h1>
 
 <?php
     function fr(string $description, string $frNumber, bool $requirementMet = false, string $tag = 'p'): string // fr = Functional requirement
     {
-        $fr = sprintf('%s<span class="badge bg-%s rounded-pill">%s</span>', $description, $requirementMet ? 'primary' : 'secondary' , $frNumber);
+        $fr = sprintf('%s<span class="badge text-bg-%s">%s</span>', $description, $requirementMet ? 'success' : 'warning' , $frNumber);
 
         return match ($tag) {
             'p' => sprintf('<p class="d-flex justify-content-between align-items-center">%s</p>', $fr),
