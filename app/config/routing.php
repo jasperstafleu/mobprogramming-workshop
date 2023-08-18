@@ -1,5 +1,7 @@
 <?php
 
+$container = require_once 'container.php';
+
 use DevelopersNL\Controller\RegisterController;
 use DevelopersNL\Request\Request;
 use DevelopersNL\Request\Route;
@@ -16,6 +18,6 @@ return [
     ),
     new Route(
         matcher: fn(Request $request) => $request->path === '/register' && $request->method === 'POST',
-        controller: fn(Request $request) => (new RegisterController())->call($request),
+        controller: fn(Request $request) => $container->get(RegisterController::class)->createNewUser($request),
     ),
 ];
